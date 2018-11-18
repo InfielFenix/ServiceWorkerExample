@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
+
+		<title>ServiceWorkerExample</title>
+
+		<script id="sap-ui-bootstrap"
+			src="../../resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-theme="sap_belize"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-preload="async"
+			data-sap-ui-resourceroots='{"com.offline.test.service.worker.ServiceWorkerExample": "./"}'>
+		</script>
+
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<script>
+			sap.ui.getCore().attachInit(function() {
+			//check if serviceWorker feature is supported by browser
+		    //if so register the sw.js as serviceWorker
+		   	if ('serviceWorker' in navigator) {
+			      	navigator.serviceWorker.register('sw.js').then(function(registration) {
+		 	      		// Registration was successfull
+		            		//now load the UI5 resources
+		            		new sap.m.Shell({
+						app: new sap.ui.core.ComponentContainer({
+							height : "100%",
+							name : "com.offline.test.service.worker.ServiceWorkerExample",
+							manifest : true,
+							async: true
+					})}).placeAt("content");
+				}).catch(function(err) {
+			          // registration failed -> load the UI5 resources
+				})
+			}
+		});
+		</script>
+	</head>
+
+	<body class="sapUiBody" id="content">
+	</body>
+
+</html>
